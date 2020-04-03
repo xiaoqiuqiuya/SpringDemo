@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="user" class="com.nice.po.User"></bean>
+
+
+    <bean id="myUserDao" class="com.nice.impl.UserDaoImpl"></bean>
+
+    <!--<bean id="myService" class="com.nice.serviceImpl.UserServiceImpl">-->
+        <!--&lt;!&ndash;将userDao注入到UserServiceImpl的属性userDao上&ndash;&gt;-->
+        <!--<constructor-arg index="0" ref="myUserDao"/>-->
+    <!--</bean>-->
+
+    <!--使用setter方法注入-->
+    <bean id="myService" class="com.nice.serviceImpl.UserServiceImpl">
+       <property name="userDao" ref="myUserDao"/>
+    </bean>
+
+
+
+</beans>
