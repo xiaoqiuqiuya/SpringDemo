@@ -27,7 +27,7 @@ public class Test1 {
     }
 
     @Test//构造方法注入
-    public void test3(){
+    public void test3() {
         ApplicationContext app = new ClassPathXmlApplicationContext("applicationContext.xml");
         UserServiceImpl userServiceImpl = (UserServiceImpl) app.getBean("myService");
         userServiceImpl.save();
@@ -35,16 +35,27 @@ public class Test1 {
 
 
     @Test//使用setter方法注入
-    public void test4(){
+    public void test4() {
         ApplicationContext app = new ClassPathXmlApplicationContext("applicationContext.xml");
         UserServiceImpl userServiceImpl = (UserServiceImpl) app.getBean("myService");
         userServiceImpl.save();
     }
 
-    @Test//bean的注解方式
-    public void test5(){
+    @Test//bean的注解方式、基于xml的aop
+    public void test5() {
         ApplicationContext app = new ClassPathXmlApplicationContext("applicationContext.xml");
-        StuController stuController = (StuController)app.getBean("stuController");
+        StuController stuController = (StuController) app.getBean("stuController");
+        stuController.save();
+    }
+
+    @Test//基于注解的aop
+    public void test6() {
+//        通知的执行顺序：
+//        正常执行:around-before-被增强的方法-around-after-afterReturn
+//        出现异常:around-before-方法异常-after-afterThrowing
+
+        ApplicationContext app = new ClassPathXmlApplicationContext("applicationContext.xml");
+        StuController stuController = (StuController) app.getBean("stuController");
         stuController.save();
     }
 

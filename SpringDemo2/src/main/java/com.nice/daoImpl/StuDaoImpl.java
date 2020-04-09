@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 public class StuDaoImpl implements StuDao {
     @Override
     public void save() {
+
         System.out.println("StuDaoImpl保存数据");
     }
 }

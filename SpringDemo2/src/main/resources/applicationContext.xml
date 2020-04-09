@@ -26,19 +26,42 @@
     <bean id="myService" class="com.nice.serviceImpl.UserServiceImpl">
         <property name="userDao" ref="myUserDao"/>
     </bean>
+
+    <!--指定需要扫描的包，使得注解生效-->
     <context:component-scan base-package="com.*"/>
+
+    <!--启动基于注解的AspectJ支持-->
+    <aop:aspectj-autoproxy/>
 
 
     <bean id="myAspect" class="com.nice.aop.MyAspect"/>
     <!--配置aop-->
-    <aop:config>
-        <!--配置切面-->
-        <aop:aspect ref="myAspect">
-            <!--配置通知和切入点-->
-            <aop:after method="log"
-                       pointcut="execution(public void com.nice.daoImpl.StuDaoImpl.save())"/>
-        </aop:aspect>
-    </aop:config>
+    <!--<aop:config>-->
+        <!--&lt;!&ndash;配置切面&ndash;&gt;-->
+        <!--<aop:aspect ref="myAspect">-->
+            <!--&lt;!&ndash;配置通知和切入点&ndash;&gt;-->
+            <!--<aop:pointcut id="myPointCut"-->
+                          <!--expression="execution(* com.nice.serviceImpl.StuServiceImpl.save())"/>-->
+            <!--&lt;!&ndash;前置通知&ndash;&gt;-->
+            <!--<aop:before method="before"-->
+                        <!--pointcut-ref="myPointCut"/>-->
+            <!--&lt;!&ndash;后置通知&ndash;&gt;-->
+            <!--<aop:after method="after"-->
+                       <!--pointcut-ref="myPointCut"/>-->
+            <!--&lt;!&ndash;后置返回通知&ndash;&gt;-->
+            <!--<aop:after-returning method="afterReturn"-->
+                                 <!--pointcut-ref="myPointCut"/>-->
+            <!--&lt;!&ndash;环绕通知&ndash;&gt;-->
+            <!--<aop:around method="around"-->
+                        <!--pointcut-ref="myPointCut"/>-->
+            <!--&lt;!&ndash;配置通知和切入点&ndash;&gt;-->
+            <!--<aop:after method="log"-->
+                       <!--pointcut-ref="myPointCut"/>-->
+            <!--&lt;!&ndash;异常通知&ndash;&gt;-->
+            <!--<aop:after-throwing method="except"-->
+                                <!--pointcut-ref="myPointCut" throwing="throwable"/>-->
+        <!--</aop:aspect>-->
+    <!--</aop:config>-->
 
 
 </beans>
