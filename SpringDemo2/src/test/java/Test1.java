@@ -1,4 +1,5 @@
-import com.nice.impl.UserDaoImpl;
+import com.nice.controller.StuController;
+import com.nice.daoImpl.UserDaoImpl;
 import com.nice.po.User;
 import com.nice.serviceImpl.UserServiceImpl;
 import org.junit.Test;
@@ -38,6 +39,13 @@ public class Test1 {
         ApplicationContext app = new ClassPathXmlApplicationContext("applicationContext.xml");
         UserServiceImpl userServiceImpl = (UserServiceImpl) app.getBean("myService");
         userServiceImpl.save();
+    }
+
+    @Test//bean的注解方式
+    public void test5(){
+        ApplicationContext app = new ClassPathXmlApplicationContext("applicationContext.xml");
+        StuController stuController = (StuController)app.getBean("stuController");
+        stuController.save();
     }
 
 

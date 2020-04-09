@@ -1,23 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
- http://www.springframework.org/schema/beans/spring-beans.xsd">
+     http://www.springframework.org/schema/beans/spring-beans.xsd
+     http://www.springframework.org/schema/context
+     http://www.springframework.org/schema/context/spring-context-4.3.xsd
+     http://www.springframework.org/schema/aop
+     http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+
+">
+
+    <!--
+    -->
     <bean id="user" class="com.nice.po.User"></bean>
-
-
-    <bean id="myUserDao" class="com.nice.impl.UserDaoImpl"></bean>
+    <bean id="myUserDao" class="com.nice.daoImpl.UserDaoImpl"></bean>
 
     <!--<bean id="myService" class="com.nice.serviceImpl.UserServiceImpl">-->
-        <!--&lt;!&ndash;将userDao注入到UserServiceImpl的属性userDao上&ndash;&gt;-->
-        <!--<constructor-arg index="0" ref="myUserDao"/>-->
+    <!--&lt;!&ndash;将userDao注入到UserServiceImpl的属性userDao上&ndash;&gt;-->
+    <!--<constructor-arg index="0" ref="myUserDao"/>-->
     <!--</bean>-->
 
-    <!--使用setter方法注入-->
+    <!--使用setter方法注入 -->
     <bean id="myService" class="com.nice.serviceImpl.UserServiceImpl">
-       <property name="userDao" ref="myUserDao"/>
+        <property name="userDao" ref="myUserDao"/>
     </bean>
+    <context:component-scan base-package="com.*"/>
 
+
+    <bean id="myAspect" class="com.nice.aop.MyAspect"/>
+    <!--配置aop-->
+    <aop:config>
+        <!--配置切面-->
+        <aop:aspect ref="myAspect">
+            <!--配置通知和切入点-->
+            <aop:after method="log"
+                       pointcut="execution(public void com.nice.daoImpl.StuDaoImpl.save())"/>
+        </aop:aspect>
+    </aop:config>
 
 
 </beans>
